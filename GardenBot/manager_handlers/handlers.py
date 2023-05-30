@@ -42,7 +42,7 @@ async def random_plant(message: types.Message):
 
 
 async def joker(message: types.Message):
-    text = 'Внимание, анекдот 🍆🍆🍆'
+    text = ['Внимание, анекдот 🍆🍆🍆']
 
     await message.reply('\n'.join(text))
 
