@@ -1,12 +1,15 @@
 import logging
 from datetime import datetime as dt
+import os
 
 from aiogram import Bot, Dispatcher, executor
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
+from dotenv import load_dotenv, find_dotenv
 
-from utils import config
 from manager_handlers import handlers
 
+
+load_dotenv(find_dotenv())
 
 storage = MemoryStorage()
 
