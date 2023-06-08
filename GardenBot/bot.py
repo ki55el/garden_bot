@@ -16,7 +16,7 @@ storage = MemoryStorage()
 logging.basicConfig(level=logging.INFO)
 
 # Объект бота
-bot = Bot(token=config.BOT_TOKEN)
+bot = Bot(token=os.getenv('BOT_TOKEN'))
 
 # Диспетчер
 dp = Dispatcher(bot=bot, storage=storage)
