@@ -25,13 +25,10 @@ def choice_plant():
     while not description:
         num = randint(741, 868)
         response = requests.get(f'https://www.landy-art.ru/helpful_information/catalogue/home.html/nid/{num}')
-        full_data = response.text.split('   ')
-        for data in full_data:
-            if '<h1 class="title is-nom" itemprop="name">' in data:
-                name = data
-            if 'растение' in data:
-                description = data
-                break
+        if response:
+            bs = BeautifulSoup(response.text, 'html.parser')
+            name = bs.find('h1', 'title is-nom').text
+            description = bs.find('div', 'description').text
 
     plant = BeautifulSoup(name+description, 'html.parser').get_text()
 
