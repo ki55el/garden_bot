@@ -35,7 +35,7 @@ def choice_plant():
             name = bs.find('h1', 'title is-nom').text
             description = bs.find('div', 'description').text
 
-    plant = BeautifulSoup(name+description, 'html.parser').get_text()
+    plant = name+description
 
     return plant
 
