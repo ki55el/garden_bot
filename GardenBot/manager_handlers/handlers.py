@@ -62,30 +62,19 @@ async def recommendation(message: types.Message):
 
 
 async def weather_data(message: types.Message):
-    try:
-        param = {
-            '0': '',
-            'T': '',
-            'M': '',
-            'lang': 'ru'
-        }
-        response = requests.get('https://wttr.in/', params=param)
-
-        data = response.text.split('  ')
-        weather = [
-            data[0],
-            data[6],
-            data[12]
-        ]
-        for line in data[12:]:
-            if 'м' in line:
-                weather.append(line)
-        weather = '\n'.join(map(str.strip, weather))
+    param = {
+        '0': '',
+        'T': '',
+        'M': '',
+        'lang': 'ru'
+    }
+    response = requests.get('https://wttr.in/', params=param)
+    if response:
         time = f'🕰 Время: {dt.now().strftime("%H:%M")}\n'
 
-        await message.answer(time+'🌦 '+weather)
+        await message.answer(time+'🌦 '+response.text)
 
-    except:
+    else:
         await message.answer('Ошибка сервера. . .')
 
 
