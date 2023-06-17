@@ -21,10 +21,18 @@ def choice_recommend():
 
 
 def choice_plant():
+    kinds = [
+        ('home', (741, 868)),
+        ('lis', (872, 962)),
+        ('hvo', (963, 1048)),
+        ('trava', (1049, 1065)),
+        ('lian', (1069, 1077))
+    ]
     description, name = '', ''
     while not description:
-        num = randint(741, 868)
-        response = requests.get(f'https://www.landy-art.ru/helpful_information/catalogue/home.html/nid/{num}')
+        kind, nums = choice(kinds)
+        num = randint(*nums)
+        response = requests.get(f'https://www.landy-art.ru/helpful_information/catalogue/{kind}.html/nid/{num}')
         if response:
             bs = BeautifulSoup(response.text, 'html.parser')
             name = bs.find('h1', 'title is-nom').text
