@@ -6,16 +6,13 @@ from bs4 import BeautifulSoup
 
 def choice_recommend():
     response = requests.get('https://iamik.ru/news/tekhnologii/56592/')
-    full_data = response.text.split('   ')
 
     recommendations = 'Советы не найдены'
-    for data in full_data:
-        if 'Гимадетдинов' in data:
-            recommendations = data.replace('\xa0', ' ')
-            break
+    if response:
+        bs = BeautifulSoup(response.text, 'html.parser')
+        recommendations = bs.find('div', 'text').text
 
-    text = BeautifulSoup(recommendations, 'html.parser').get_text()
-    recommendation = text.replace(' \nР. Гимадетдинов', '').split('• ')
+    recommendation = recommendations.replace(' \nР. Гимадетдинов', '').split('• ')
 
     return choice(recommendation)
 
